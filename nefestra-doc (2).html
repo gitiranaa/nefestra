@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nefestra – Espaço Jovem Criativo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap');
+
+  :root {
+    --roxo-escuro: #1a0a2e;
+    --roxo-medio: #4b1fa0;
+    --roxo-vivo: #7b2fff;
+    --roxo-claro: #c49dff;
+    --verde-neon: #39ff6e;
+    --verde-medio: #1db954;
+    --ouro: #d4af37;
+    --ouro-claro: #f0d060;
+    --ouro-escuro: #a07820;
+    --branco: #f5f0ff;
+    --cinza-claro: #e8e0f7;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--roxo-escuro);
+    color: var(--branco);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+  }
+
+  /* CAPA */
+  .capa {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 60px 40px;
+    background:
+      radial-gradient(ellipse at 20% 50%, #3a0d6e44 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 30%, #00ff5518 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, #a0720822 0%, transparent 50%),
+      var(--roxo-escuro);
+  }
+
+  .capa::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 60px, #ffffff05 60px, #ffffff05 61px),
+      repeating-linear-gradient(90deg, transparent, transparent 60px, #ffffff05 60px, #ffffff05 61px);
+  }
+
+  /* Cantos dourados decorativos */
+  .capa::after {
+    content: '';
+    position: absolute;
+    inset: 24px;
+    border: 1px solid transparent;
+    border-image: linear-gradient(135deg, #d4af3744, transparent 40%, transparent 60%, #d4af3744) 1;
+    pointer-events: none;
+  }
+
+  .capa-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 5px;
+    color: var(--ouro);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    border: 1px solid var(--ouro-escuro);
+    padding: 6px 22px;
+    border-radius: 2px;
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(135deg, #a0782010, #d4af3710);
+  }
+
+  .capa-descricao {
+    max-width: 540px;
+    font-size: 1rem;
+    color: var(--cinza-claro);
+    font-weight: 300;
+    line-height: 1.9;
+    margin-bottom: 48px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .capa-meta {
+    display: flex;
+    gap: 44px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+
+  .meta-item { text-align: center; }
+  .meta-item span {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    color: var(--ouro);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .meta-item p {
+    font-size: 0.88rem;
+    color: var(--roxo-claro);
+    font-weight: 500;
+  }
+
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.2;
+    pointer-events: none;
+  }
+  .orb-1 { width: 400px; height: 400px; background: var(--roxo-vivo); top: -100px; left: -100px; }
+  .orb-2 { width: 300px; height: 300px; background: var(--verde-neon); bottom: -80px; right: -80px; }
+  .orb-3 { width: 250px; height: 250px; background: var(--ouro); top: 60%; left: 50%; transform: translate(-50%,-50%); opacity: 0.06; }
+
+  /* DIVISOR */
+  .divisor {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--ouro-escuro), var(--roxo-vivo), var(--verde-neon), var(--ouro-escuro), transparent);
+    opacity: 0.5;
+  }
+
+  /* SEÇÕES */
+  section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+
+  .secao-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 4px;
+    color: var(--ouro);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .secao-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 28px;
+  }
+
+  .gradiente-roxo { color: var(--roxo-claro); }
+  .gradiente-verde { color: var(--verde-neon); }
+  .gradiente-ouro {
+    background: linear-gradient(135deg, var(--ouro-claro), var(--ouro));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .secao-texto {
+    font-size: 1rem;
+    color: var(--cinza-claro);
+    font-weight: 300;
+    line-height: 1.9;
+    margin-bottom: 20px;
+  }
+
+  /* TÓPICOS 6 */
+  .topicos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 18px;
+    margin-top: 40px;
+  }
+
+  .topico {
+    background: linear-gradient(145deg, #22103a, #160930);
+    border: 1px solid #d4af3722;
+    border-radius: 14px;
+    padding: 26px 22px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .topico:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px #d4af3718;
+  }
+
+  .topico::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, var(--ouro-escuro), var(--ouro-claro), var(--ouro-escuro));
+  }
+
+  .topico-emoji {
+    font-size: 2rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .topico h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--ouro-claro);
+    margin-bottom: 8px;
+  }
+
+  .topico p {
+    font-size: 0.84rem;
+    color: var(--cinza-claro);
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  /* CARDS */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .card {
+    background: linear-gradient(135deg, #2a1050, #1e0840);
+    border: 1px solid #d4af3720;
+    border-radius: 16px;
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+  .card:hover { transform: translateY(-4px); }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--ouro-escuro), var(--ouro-claro), var(--roxo-vivo));
+  }
+
+  .card-icone { font-size: 1.8rem; margin-bottom: 14px; }
+
+  .card-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    color: var(--ouro);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .card-valor {
+    font-size: 0.95rem;
+    color: var(--roxo-claro);
+    font-weight: 500;
+  }
+
+  /* MÓDULOS */
+  .modulos-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-top: 48px;
+  }
+
+  @media (max-width: 620px) {
+    .modulos-wrap { grid-template-columns: 1fr; }
+    .topicos-grid { grid-template-columns: 1fr; }
+    .pilares { grid-template-columns: 1fr; }
+  }
+
+  .modulo {
+    border-radius: 20px;
+    padding: 36px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .modulo-capacitacao {
+    background: linear-gradient(135deg, #2e0f6e, #1a0a40);
+    border: 1px solid #d4af3740;
+  }
+
+  .modulo-inspiracao {
+    background: linear-gradient(135deg, #0e3a1a, #051a10);
+    border: 1px solid #d4af3740;
+  }
+
+  .modulo-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 900;
+    position: absolute;
+    top: -10px; right: 20px;
+    opacity: 0.06;
+    line-height: 1;
+    color: var(--ouro);
+  }
+
+  .modulo-badge {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    padding: 5px 14px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .badge-roxo { background: linear-gradient(90deg, var(--roxo-vivo), var(--roxo-medio)); color: #fff; }
+  .badge-verde { background: linear-gradient(90deg, var(--verde-medio), #0f8c3a); color: #fff; }
+
+  .modulo h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 14px;
+    color: var(--ouro-claro);
+  }
+
+  .modulo p {
+    font-size: 0.9rem;
+    color: var(--cinza-claro);
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  /* ETAPAS */
+  .etapas { margin-top: 48px; }
+
+  .etapa {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 36px;
+    align-items: flex-start;
+  }
+
+  .etapa-num {
+    flex-shrink: 0;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 0 20px #d4af3744;
+  }
+
+  .etapa-num-1 { background: linear-gradient(135deg, var(--ouro-escuro), var(--ouro)); color: #1a0a2e; }
+  .etapa-num-2 { background: linear-gradient(135deg, var(--verde-neon), var(--verde-medio)); color: #000; }
+
+  .etapa-content h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+    color: var(--ouro-claro);
+  }
+
+  .etapa-content p {
+    font-size: 0.9rem;
+    color: var(--cinza-claro);
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  .etapa-duracao {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: var(--ouro);
+    border: 1px solid var(--ouro-escuro);
+    padding: 3px 10px;
+    border-radius: 2px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  /* CERTIFICADOS */
+  .certs {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 32px;
+  }
+
+  .cert {
+    flex: 1;
+    min-width: 200px;
+    background: linear-gradient(135deg, #221040, #160830);
+    border: 1px solid #d4af3730;
+    border-radius: 14px;
+    padding: 24px 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .cert-icon { font-size: 2rem; }
+
+  .cert-text span {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: var(--ouro);
+    text-transform: uppercase;
+  }
+  .cert-text p {
+    font-size: 0.9rem;
+    color: var(--roxo-claro);
+    font-weight: 500;
+    margin-top: 4px;
+  }
+
+  /* DESTAQUE */
+  .destaque-box {
+    background: linear-gradient(135deg, #1e0840, #0a3018);
+    border: 1px solid #d4af3728;
+    border-radius: 20px;
+    padding: 48px 40px;
+    margin-top: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .destaque-box::before {
+    content: '""';
+    font-family: 'Playfair Display', serif;
+    font-size: 8rem;
+    color: var(--ouro);
+    opacity: 0.05;
+    position: absolute;
+    top: -10px; left: 20px;
+    line-height: 1;
+  }
+
+  .destaque-box::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--ouro-escuro), var(--ouro-claro), var(--ouro-escuro), transparent);
+  }
+
+  .destaque-box p {
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--cinza-claro);
+    line-height: 1.9;
+  }
+
+  .destaque-box .autor {
+    margin-top: 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: var(--ouro);
+    text-transform: uppercase;
+    font-style: normal;
+  }
+
+  /* PILARES */
+  .pilares {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .pilar {
+    text-align: center;
+    padding: 32px 20px;
+    border-radius: 14px;
+    background: #ffffff04;
+    border: 1px solid #d4af3720;
+    position: relative;
+  }
+
+  .pilar::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 40px; height: 2px;
+    background: linear-gradient(90deg, var(--ouro-escuro), var(--ouro-claro));
+    border-radius: 2px;
+  }
+
+  .pilar-emoji { font-size: 2.2rem; margin-bottom: 14px; }
+  .pilar h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--ouro-claro);
+    margin-bottom: 8px;
+  }
+  .pilar p {
+    font-size: 0.82rem;
+    color: var(--cinza-claro);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* RODAPÉ */
+  .rodape {
+    background: linear-gradient(180deg, var(--roxo-escuro) 0%, #0d0618 100%);
+    padding: 100px 40px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .rodape::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 1px; height: 80px;
+    background: linear-gradient(180deg, transparent, var(--ouro));
+  }
+
+  .frase-final {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 4vw, 2.4rem);
+    font-weight: 900;
+    line-height: 1.3;
+    background: linear-gradient(135deg, var(--ouro-claro), var(--roxo-claro), var(--verde-neon));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    max-width: 600px;
+    margin: 0 auto 32px;
+  }
+
+  .rodape-info {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: #d4af3740;
+    text-transform: uppercase;
+    margin-top: 48px;
+  }
+
+  .rodape-email {
+    display: inline-block;
+    margin-top: 12px;
+    color: var(--ouro);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    text-decoration: none;
+    border-bottom: 1px solid var(--ouro-escuro);
+    padding-bottom: 2px;
+  }
+
+  /* Ornamento dourado */
+  .ornamento {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 36px 0 0;
+    justify-content: center;
+  }
+  .ornamento-linha {
+    flex: 1;
+    max-width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--ouro-escuro));
+  }
+  .ornamento-linha.dir {
+    background: linear-gradient(90deg, var(--ouro-escuro), transparent);
+  }
+  .ornamento-diamante {
+    width: 8px; height: 8px;
+    background: var(--ouro);
+    transform: rotate(45deg);
+    opacity: 0.8;
+  }
+</style>
+</head>
+<body>
+
+<!-- CAPA -->
+<div class="capa">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="capa-tag">Apresentação</div>
+
+  <div style="margin-bottom:16px;position:relative;z-index:1;">
+    <svg viewBox="0 0 520 120" width="380" style="max-width:90vw;filter:drop-shadow(0 0 20px #7b2fff99) drop-shadow(0 0 8px #d4af3766);" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#f0d060"/>
+          <stop offset="35%" style="stop-color:#c49dff"/>
+          <stop offset="70%" style="stop-color:#39ff6e"/>
+          <stop offset="100%" style="stop-color:#d4af37"/>
+        </linearGradient>
+        <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#a07820"/>
+          <stop offset="50%" style="stop-color:#f0d060"/>
+          <stop offset="100%" style="stop-color:#a07820"/>
+        </linearGradient>
+      </defs>
+      <line x1="30" y1="10" x2="490" y2="10" stroke="url(#lineGrad)" stroke-width="1" opacity="0.5"/>
+      <text x="260" y="88" text-anchor="middle"
+        font-family="'Playfair Display', Georgia, serif"
+        font-size="82" font-weight="900"
+        letter-spacing="-2"
+        fill="url(#logoGrad)">NEFESTRA</text>
+      <line x1="30" y1="104" x2="490" y2="104" stroke="url(#lineGrad)" stroke-width="1" opacity="0.5"/>
+      <text x="260" y="118" text-anchor="middle"
+        font-family="'Space Mono', monospace"
+        font-size="9" letter-spacing="7"
+        fill="#d4af37" opacity="0.85">E S P A Ç O · J O V E M · C R I A T I V O</text>
+    </svg>
+  </div>
+
+  <p class="capa-descricao">
+    Uma plataforma cultural e educacional independente que transforma a arte em ferramenta de pensamento crítico, formação e intervenção social para a juventude.
+  </p>
+
+  <div class="capa-meta">
+    <div class="meta-item">
+      <span>Fundação</span>
+      <p>Abril de 2025</p>
+    </div>
+    <div class="meta-item">
+      <span>Módulos</span>
+      <p>2 Estruturados</p>
+    </div>
+    <div class="meta-item">
+      <span>Formato</span>
+      <p>Independente</p>
+    </div>
+    <div class="meta-item">
+      <span>Contato</span>
+      <p>nefestra@gmail.com</p>
+    </div>
+  </div>
+</div>
+
+<div class="divisor"></div>
+
+<!-- SOBRE -->
+<section>
+  <p class="secao-tag">// 01 — Sobre o Projeto</p>
+  <h2 class="secao-titulo">O que é o <span class="gradiente-ouro">Nefestra?</span></h2>
+
+  <p class="secao-texto">
+    Fundado em abril de 2025 por <strong>Jeferson Gitirana</strong>, o Nefestra nasce da convicção de que arte e educação não são campos separados. A plataforma foi criada para ser um espaço de acesso real: onde jovens, estudantes e artistas emergentes encontram ferramentas concretas para pensar, criar e agir sobre o mundo ao seu redor.
+  </p>
+
+  <div class="topicos-grid">
+    <div class="topico">
+      <span class="topico-emoji">🎨</span>
+      <h4>Identidade Autoral</h4>
+      <p>O Nefestra valoriza a voz única de cada jovem criador, estimulando a produção com perspectiva própria e posicionamento consciente.</p>
+    </div>
+    <div class="topico">
+      <span class="topico-emoji">🛠️</span>
+      <h4>Acesso à Formação</h4>
+      <p>Capacitação técnica em audiovisual e comunicação para quem não tem acesso fácil às ferramentas profissionais do mercado criativo.</p>
+    </div>
+    <div class="topico">
+      <span class="topico-emoji">🌍</span>
+      <h4>Pautas Sociais</h4>
+      <p>Todo conteúdo produzido está conectado a temas sociais reais, trabalhados em parceria com ONGs e agentes da comunidade.</p>
+    </div>
+    <div class="topico">
+      <span class="topico-emoji">🎭</span>
+      <h4>Humor como Método</h4>
+      <p>A comicidade não é entretenimento vazio: é dispositivo pedagógico que quebra hierarquias e aproxima o público de temas complexos.</p>
+    </div>
+    <div class="topico">
+      <span class="topico-emoji">📜</span>
+      <h4>Certificação Dupla</h4>
+      <p>Cada aluno recebe dois certificados ao concluir o ciclo: um de capacitação técnica e um de atuação prática, reconhecendo o percurso completo.</p>
+    </div>
+    <div class="topico">
+      <span class="topico-emoji">🌱</span>
+      <h4>Impacto Comunitário</h4>
+      <p>O projeto fortalece redes com organizações sociais e gera oportunidades reais de inserção criativa e profissional para jovens periféricos.</p>
+    </div>
+  </div>
+
+  <div class="ornamento">
+    <div class="ornamento-linha"></div>
+    <div class="ornamento-diamante"></div>
+    <div class="ornamento-linha dir"></div>
+  </div>
+</section>
+
+<div class="divisor"></div>
+
+<!-- EQUIPE -->
+<section>
+  <p class="secao-tag">// 02 — Direção</p>
+  <h2 class="secao-titulo">Quem está por <span class="gradiente-roxo">trás?</span></h2>
+  <p class="secao-texto">
+    O Nefestra é dirigido por um núcleo criativo comprometido com a intersecção entre arte, educação e impacto social. A equipe reúne perspectivas diversas que se complementam na construção de uma plataforma plural e contemporânea.
+  </p>
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icone">🧠</div>
+      <div class="card-label">Fundador e Diretor</div>
+      <div class="card-valor">Jeferson Gitirana</div>
+    </div>
+    <div class="card">
+      <div class="card-icone">✨</div>
+      <div class="card-label">Diretora</div>
+      <div class="card-valor">Nayara Maria</div>
+    </div>
+    <div class="card">
+      <div class="card-icone">🎬</div>
+      <div class="card-label">Diretor</div>
+      <div class="card-valor">André Riceliano</div>
+    </div>
+  </div>
+</section>
+
+<div class="divisor"></div>
+
+<!-- MÓDULOS -->
+<section>
+  <p class="secao-tag">// 03 — Módulos</p>
+  <h2 class="secao-titulo">Duas frentes de <span class="gradiente-verde">atuação</span></h2>
+  <p class="secao-texto">
+    O Nefestra opera atualmente através de dois módulos estruturados, cada um com identidade própria, mas profundamente conectados pela mesma missão: formar, inspirar e transformar.
+  </p>
+
+  <div class="modulos-wrap">
+    <div class="modulo modulo-capacitacao">
+      <div class="modulo-num">01</div>
+      <div class="modulo-badge badge-roxo">Capacitação</div>
+      <h3>Produção Arte Criativa</h3>
+      <p>Cursos práticos de audiovisual e comunicação integrados ao debate social contemporâneo. Uma formação que une técnica, teoria e criação autoral.</p>
+    </div>
+    <div class="modulo modulo-inspiracao">
+      <div class="modulo-num">02</div>
+      <div class="modulo-badge badge-verde">Inspiração</div>
+      <h3>Entrevistas de Camarote</h3>
+      <p>Conversas com artistas, educadores e agentes culturais conduzidas por um comediante, onde humor e crítica social caminham lado a lado.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divisor"></div>
+
+<!-- PRODUÇÃO ARTE CRIATIVA -->
+<section>
+  <p class="secao-tag">// 04 — Módulo I</p>
+  <h2 class="secao-titulo">Produção <span class="gradiente-ouro">Arte Criativa</span></h2>
+  <p class="secao-texto">
+    Os cursos do Nefestra têm duração de <strong>3 a 4 meses</strong> e foram estruturados para unir formação teórica, capacitação técnica e prática criativa em um único percurso formativo. O modelo é dividido em duas etapas complementares, cada uma com objetivos específicos e progressivos.
+  </p>
+
+  <div class="etapas">
+    <div class="etapa">
+      <div class="etapa-num etapa-num-1">01</div>
+      <div class="etapa-content">
+        <div class="etapa-duracao">1 a 2 meses</div>
+        <h4>Formação Teórica e Introdução Técnica</h4>
+        <p>Os alunos estudam pautas sociais contemporâneas em parceria com ONGs e agentes sociais, ao mesmo tempo em que são introduzidos às funções técnicas e criativas do audiovisual e da comunicação: edição, gravação, roteirização e produção. O saber técnico e o pensamento crítico caminham juntos desde o início.</p>
+      </div>
+    </div>
+    <div class="etapa">
+      <div class="etapa-num etapa-num-2">02</div>
+      <div class="etapa-content">
+        <div class="etapa-duracao">Etapa Final</div>
+        <h4>Prática Criativa e Produção Autoral</h4>
+        <p>Na segunda etapa, os alunos aplicam o que desenvolveram durante a formação. A partir desse processo, produzem materiais autorais que podem variar entre vídeos curtos, clipes, entrevistas ou curtas-metragens, de acordo com o módulo e a proposta do curso, sempre com voz e perspectiva próprias.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="certs">
+    <div class="cert">
+      <div class="cert-icon">📜</div>
+      <div class="cert-text">
+        <span>Certificado 1</span>
+        <p>Capacitação — período de formação</p>
+      </div>
+    </div>
+    <div class="cert">
+      <div class="cert-icon">🏅</div>
+      <div class="cert-text">
+        <span>Certificado 2</span>
+        <p>Atuação — prática criativa realizada</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divisor"></div>
+
+<!-- ENTREVISTAS -->
+<section>
+  <p class="secao-tag">// 05 — Módulo II</p>
+  <h2 class="secao-titulo">Entrevistas de <span class="gradiente-verde">Camarote</span></h2>
+  <p class="secao-texto">
+    As entrevistas do Nefestra constituem uma frente central do projeto, funcionando simultaneamente como conteúdo público e como ferramenta pedagógica. O formato prioriza conversas abertas com artistas, educadores, agentes culturais e representantes de ONGs, sempre conectadas às pautas sociais trabalhadas nos cursos.
+  </p>
+
+  <div class="destaque-box">
+    <p>
+      No Nefestra, o entrevistador assume um papel central e diferenciado: é um comediante. A escolha não é estética, é metodológica. O humor é utilizado como ferramenta de mediação cultural, capaz de quebrar formalidades, reduzir hierarquias e criar um ambiente de conversa mais acessível, honesto e humano. O comediante atua como condutor do diálogo, utilizando a comicidade, a ironia e a observação crítica para tensionar temas complexos sem esvaziá-los.
+    </p>
+    <p class="autor">Diferencial metodológico do Nefestra</p>
+  </div>
+
+  <div class="pilares" style="margin-top:40px;">
+    <div class="pilar">
+      <div class="pilar-emoji">🎭</div>
+      <h4>Humor como Método</h4>
+      <p>A comicidade não é entretenimento vazio: é dispositivo pedagógico que aproxima o público de temas complexos.</p>
+    </div>
+    <div class="pilar">
+      <div class="pilar-emoji">🤝</div>
+      <h4>Escuta Qualificada</h4>
+      <p>Trajetórias pessoais, processos criativos e vivências sociais se tornam matéria de reflexão coletiva.</p>
+    </div>
+    <div class="pilar">
+      <div class="pilar-emoji">🎞️</div>
+      <h4>Formação Integrada</h4>
+      <p>Alunos participam de todo o processo: pesquisa, roteirização, gravação e edição, aprendendo na prática.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divisor"></div>
+
+<!-- MISSÃO -->
+<section>
+  <p class="secao-tag">// 06 — Pilares e Missão</p>
+  <h2 class="secao-titulo">Por que o <span class="gradiente-ouro">Nefestra</span> existe</h2>
+  <p class="secao-texto">
+    O Nefestra nasce do desejo de transformar a arte em um espaço ativo de formação, diálogo e intervenção social. Acreditamos que o acesso ao pensamento crítico não é privilégio: é direito. Por isso, cada etapa do projeto é desenhada para ser acessível, contemporânea e relevante para quem está construindo sua identidade criativa e cidadã.
+  </p>
+
+  <div class="pilares">
+    <div class="pilar">
+      <div class="pilar-emoji">🔍</div>
+      <h4>Pensamento Crítico</h4>
+      <p>Estimular a análise do contexto social e o posicionamento consciente diante da realidade.</p>
+    </div>
+    <div class="pilar">
+      <div class="pilar-emoji">🛠️</div>
+      <h4>Formação Técnica</h4>
+      <p>Ofertar ferramentas reais de produção audiovisual e comunicação para quem não tem acesso fácil a elas.</p>
+    </div>
+    <div class="pilar">
+      <div class="pilar-emoji">🌱</div>
+      <h4>Impacto Social</h4>
+      <p>Fortalecer redes com ONGs e agentes sociais, gerando oportunidades concretas de capacitação e atuação.</p>
+    </div>
+  </div>
+
+  <div class="ornamento">
+    <div class="ornamento-linha"></div>
+    <div class="ornamento-diamante"></div>
+    <div class="ornamento-linha dir"></div>
+  </div>
+</section>
+
+<div class="divisor"></div>
+
+<!-- RODAPÉ -->
+<footer class="rodape">
+  <p class="frase-final">"O fim é só um modo feio de começar diferente."</p>
+  <p class="secao-texto" style="max-width:500px;margin:0 auto;text-align:center;font-size:0.95rem;">
+    O Nefestra tem como meta consolidar-se como uma plataforma formativa contínua, capaz de gerar impacto cultural real e criar oportunidades concretas para a juventude criativa brasileira.
+  </p>
+  <div class="rodape-info">
+    Nefestra · Espaço Jovem Criativo · Fundado em 2025
+    <br>
+    <a class="rodape-email" href="mailto:nefestra@gmail.com">nefestra@gmail.com</a>
+  </div>
+</footer>
+
+</body>
+</html>
